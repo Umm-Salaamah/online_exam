@@ -1,0 +1,54 @@
+<!-- templates/exams/result.html -->
+{% extends "base_generic.html" %}
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-header text-center bg-primary text-white">
+      <h2>Exam Results</h2>
+    </div>
+    <div class="card-body text-center">
+      <p class="score-display">You scored <strong>{{ score }}</strong> out of <strong>{{ total }}</strong>.</p>
+      
+      <!-- Link to take another exam -->
+      <p>Would you like to take another exam?</p>
+      <a href="{% url 'exam_list' %}" class="btn btn-primary mb-3">Take another exam</a>
+
+      <!-- Logout link -->
+      <p><a href="{% url 'logout' %}" class="btn btn-danger">Logout</a></p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .container {
+    max-width: 600px;
+    margin: auto;
+  }
+  .card {
+    border-radius: 10px;
+  }
+  .card-header {
+    border-radius: 10px 10px 0 0;
+  }
+  .score-display {
+    font-size: 1.5rem;
+    color: blue; /* Blue color for the score text */
+  }
+  .btn-primary {
+    background-color: blue; /* Set button background color to blue */
+    border: none; /* Remove border */
+    color: white; /* Set button text color to white */
+  }
+  .btn-primary:hover {
+    background-color: darkblue; /* Darker blue on hover */
+  }
+  .btn-danger {
+    background-color: green; /* Set button background color to green */
+    border: none; /* Remove border */
+    color: white; /* Set button text color to white */
+  }
+  .btn-danger:hover {
+    background-color: darkgreen; /* Darker green on hover */
+  }
+</style>
+{% endblock %}

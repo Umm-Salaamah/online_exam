@@ -1,0 +1,85 @@
+<!-- templates/exams/take_exam.html -->
+{% extends "base_generic.html" %}
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-header text-center bg-primary text-white">
+      <h2>{{ exam.title }}</h2>
+      <div id="timer" class="timer-display"></div> <!-- Timer display -->
+    </div>
+    <div class="card-body">
+      <form id="examForm" method="post" onsubmit="return confirmSubmission()">
+        {% csrf_token %}
+        {% for question in questions %}
+          <div class="mb-4">
+            <p><strong>{{ forloop.counter }}. {{ question.text }}</strong></p>
+            <div class="options">
+              <label class="d-block"><input type="radio" name="{{ question.id }}" value="{{ question.option1 }}"> {{ question.option1 }}</label>
+              <label class="d-block"><input type="radio" name="{{ question.id }}" value="{{ question.option2 }}"> {{ question.option2 }}</label>
+              <label class="d-block"><input type="radio" name="{{ question.id }}" value="{{ question.option3 }}"> {{ question.option3 }}</label>
+              <label class="d-block"><input type="radio" name="{{ question.id }}" value="{{ question.option4 }}"> {{ question.option4 }}</label>
+            </div>
+          </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-success btn-block">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .timer-display {
+    position: fixed; /* Position the element relative to the browser window */
+    top: 20px; /* Set the distance from the top of the browser window */
+    right: 20px; /* Set the distance from the right side of the browser window */
+    z-index: 999; /* Ensure the element appears above other content */
+    text-align: center; /* Center the content horizontally */
+    background-color: blue; /* Set background color to blue */
+    color: white; /* Set text color to white */
+    padding: 10px; /* Add some padding for better appearance */
+    border-radius: 5px;
+  }
+  .options {
+    padding-left: 20px; /* Indent the options */
+  }
+  .card {
+    border-radius: 10px;
+  }
+  .card-header {
+    border-radius: 10px 10px 0 0;
+  }
+</style>
+
+<script>
+  // Timer countdown function
+  function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+      minutes = parseInt(timer / 60, 10);
+      seconds = parseInt(timer % 60, 10);
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      display.textContent = minutes + ":" + seconds;
+
+      if (--timer < 0) {
+        timer = 0; // Set timer to zero if it reaches negative values
+        document.getElementById("examForm").submit(); // Submit form when timer reaches zero
+      }
+    }, 1000);
+  }
+
+  // Start timer when the page loads
+  window.onload = function () {
+    var timerMinutes = 20, // Set timer duration in minutes
+        display = document.querySelector('#timer');
+    startTimer(timerMinutes * 60, display);
+  };
+
+  // Confirm submission function
+  function confirmSubmission() {
+    return confirm("Are you sure you want to submit the exam?");
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!-- templates/registration/logged_out.html -->
+{% extends "base_generic.html" %}
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-header text-center bg-primary text-white">
+      <h2>Logged Out</h2>
+    </div>
+    <div class="card-body text-center">
+      <p>Thanks for spending some quality time with the website today.</p>
+      <a href="{% url 'login' %}" class="btn btn-primary">Log in again</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .container {
+    max-width: 600px;
+    margin: auto;
+  }
+  .card {
+    border-radius: 10px;
+  }
+  .card-header {
+    border-radius: 10px 10px 0 0;
+  }
+  .btn-primary {
+    background-color: blue; /* Set button background color to blue */
+    border: none; /* Remove border */
+    color: white; /* Set button text color to white */
+  }
+  .btn-primary:hover {
+    background-color: darkblue; /* Darker blue on hover */
+  }
+</style>
+{% endblock %}
