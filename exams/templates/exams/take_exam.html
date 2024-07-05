@@ -1,10 +1,16 @@
 <!-- templates/exams/take_exam.html -->
 {% extends "base_generic.html" %}
 {% block content %}
+<div class="" style="padding: 20px; text-transform: uppercase; text-align: center;">
+  <p style="font-size: 24px;">welcome <span class="" style="font-style: italic; color: blue; font-weight: bold;">
+    {{user.username}}</span> you have a total of {{exam.duration}} minutes for this exam 
+  </p>
+</div>
 <div class="container mt-5">
   <div class="card shadow">
     <div class="card-header text-center bg-primary text-white">
       <h2>{{ exam.title }}</h2>
+      <p class="duration" style="display: none;">{{ exam.duration }}</p>
       <div id="timer" class="timer-display"></div> <!-- Timer display -->
     </div>
     <div class="card-body">
@@ -72,7 +78,8 @@
 
   // Start timer when the page loads
   window.onload = function () {
-    var timerMinutes = 20, // Set timer duration in minutes
+    var timer = document.querySelector(".duration").textContent
+    timerMinutes = timer, // Set timer duration in minutes
         display = document.querySelector('#timer');
     startTimer(timerMinutes * 60, display);
   };
@@ -83,3 +90,4 @@
   }
 </script>
 {% endblock %}
+

@@ -7,14 +7,16 @@
       <h2>Exam Results</h2>
     </div>
     <div class="card-body text-center">
-      <p class="score-display">You scored <strong>{{ score }}</strong> out of <strong>{{ total }}</strong>.</p>
+      <p class="score-display">{{user.username}} you scored <strong>{{ score }}</strong> out of <strong>{{ total }}</strong>.</p>
       
       <!-- Link to take another exam -->
       <p>Would you like to take another exam?</p>
-      <a href="{% url 'exam_list' %}" class="btn btn-primary mb-3">Take another exam</a>
+      <div class="d-flex justify-content-between align-items-center w-75 mx-auto">
+        <a href="{% url 'exam_list' %}" class="btn btn-primary mb-3">Take another exam</a>
 
-      <!-- Logout link -->
-      <p><a href="{% url 'logout' %}" class="btn btn-danger">Logout</a></p>
+        <!-- Logout link -->
+        <p><a href="{% url 'logout' %}" class="btn btn-danger">Logout</a></p>
+      </div>
     </div>
   </div>
 </div>
